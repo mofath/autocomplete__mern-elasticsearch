@@ -1,0 +1,33 @@
+.Header {
+  background-color: white;
+  border-bottom: 1px solid #e3e4e5;
+  height: 100px;
+  text-align: left;
+}
+
+.Heading {
+  height: 20px;
+  width: 100%;
+  background-color: #a91111;
+  color: white;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.NavigationContainer {
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10%;
+}
+
+.NavigationContainer i {
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.BrandLogo {
+  font-family: billabongregular;
+}
+
