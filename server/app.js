@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 
+const productRouter = require("./routes/product.route");
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -25,9 +27,7 @@ app.use((req, res, next) => {
 /**
  * Routes which should handle requests
  */
-app.use("/", (req, res) => {
-  res.send("server works!");
-});
+app.use("/products", productRouter);
 
 /**
  * Override 404 error
