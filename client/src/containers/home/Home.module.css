@@ -1,0 +1,26 @@
+.HomeScreen {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 25% auto;
+  grid-template-rows: auto;
+  grid-template-areas: "sidebar main";
+  height: auto;
+}
+
+.HomeScreen aside,
+.HomeScreen main {
+  text-align: center;
+}
+
+.HomeScreen aside {
+  grid-area: sidebar;
+  background-color: red;
+}
+
+.HomeScreen main {
+  grid-area: main;
+  justify-content: center;
+  align-items: center;
+  background-color: yellow;
+}
