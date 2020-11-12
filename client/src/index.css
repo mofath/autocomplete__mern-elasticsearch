@@ -1,0 +1,21 @@
+a:hover {
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ****************** general rules ***************** */
+.vertical-layout,
+.horizontal-layout {
+  display: flex;
+  flex: 1;
+}
+.horizontal-layout {
+  flex-direction: row;
+}
+.vertical-layout {
+  flex-direction: column;
+}
