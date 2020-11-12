@@ -1,11 +1,12 @@
-.Search {
+.Searchbar {
   display: flex;
   align-items: center;
-  width: 60%;
+  justify-content: flex-end;
+  width: 55%;
   padding-bottom: 10px;
 }
 
-.SearchActive {
+.ActiveSearchbar {
   border-bottom: solid 0.7px black;
   width: 60%;
 }
@@ -19,16 +20,20 @@
   margin-left: 0;
   opacity: 0;
   width: 80%;
+  font-size: 16px;
+  display: none;
 }
 
 .SearchInput:focus,
 .SearchInput:active,
-.ActiveSearcInput {
+.ActiveSearchInput {
   margin-left: 10px;
   padding: 0 10px;
   opacity: 1;
   outline: none;
   width: 100%;
+  display: block;
+
 }
 
 .SearchIcon {
