@@ -1,0 +1,23 @@
+.RangeBox {
+    display: block;
+    width: 102%;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 15px;
+  }
+  
+  .RangeValue{
+    width: 55px;
+    height: auto;
+    font-size: 17px;
+    border-radius: 3px;
+    font-weight: 500;
+    padding: 2px;
+    color: aliceblue;
+    background-color: #bfbaba;
+  }
+  
+  .RangeSlider{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
