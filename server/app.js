@@ -12,6 +12,7 @@ app.use(bodyParser.json());
  * Handle cors
  */
 app.use((req, res, next) => {
+  console.log(`NEW REQUEST ${req.ip}`);
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
@@ -44,7 +45,7 @@ app.use((req, res, next) => {
 app.use((error, req, res, next) => {
   console.log("\x1b[33m%s\x1b[0m", "...ERROR CAUGHT...");
   res.status(error.status || 500);
-  res.json({ message: { msgBody: error.message, msgError: true } });
+  return res.json({ message: { msgBody: error.message, msgError: true } });
 });
 
 module.exports = app;

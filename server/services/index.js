@@ -1,3 +1,5 @@
 module.exports = {
-    ...require('./getProducts'),
-}
+  ...require("./filterAndSearchProducts"),
+  ...require("./autoCompleteSearch"),
+  ...require("./getProducts"),
+};
