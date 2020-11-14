@@ -15,12 +15,10 @@
 
 .HomeScreen aside {
   grid-area: sidebar;
-  background-color: red;
 }
 
 .HomeScreen main {
   grid-area: main;
   justify-content: center;
   align-items: center;
-  background-color: yellow;
 }
