@@ -1,0 +1,99 @@
+.ProductCard {
+  background-color: white;
+  border-radius: 4px;
+  width: 235px !important;
+  width: 200px;
+  cursor: pointer;
+  padding: 0px 10px 10px 10px;
+  overflow: hidden;
+  border-radius: 3px;
+  box-shadow: 0 0 4px #d1d0d0;
+}
+
+/* ********** Image *********** */
+.ImageFrame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 180px;
+  background: white;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.ImageFrame img {
+  width: auto;
+  height: 80%;
+  object-fit: cover;
+}
+
+/* ************************ */
+.CardBody {
+  background-color: white;
+  padding-top: 10px;
+  width: 100%;
+}
+
+.CardBody .Title {
+  font-size: 0.8rem;
+  line-height: 20px;
+  color: #0f384d;
+  text-transform: uppercase;
+  min-height: inherit;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.PriceBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.PriceTag {
+  background: #ffea29;
+  border: none;
+  padding: 8px 15px 10px 10px;
+  border-radius: 4px 0 0 4px;
+  position: relative;
+  margin-right: 10px;
+  z-index: 1;
+}
+
+.PriceTag:after {
+  background: #ffea29;
+  width: 13px;
+  height: 100%;
+  position: absolute;
+  transform: skew(10deg);
+  content: "";
+  right: -5px;
+  top: 0;
+  z-index: -1;
+}
+
+.PriceTag h5 {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0px 0px 5px 0px;
+  margin: 0px 0px 0px 0px;
+}
+
+.SaleBox {
+  font-size: 14px;
+  color: #ff3a0b !important;
+  text-transform: capitalize;
+  font-size: 13px;
+  font-weight: 500;
+  justify-content: space-around;
+  text-align: end;
+  padding-right: 10px;
+}
+
+.OriginalPrice {
+  color: #aaa;
+  font-size: 14px;
+  text-decoration: line-through;
+}
