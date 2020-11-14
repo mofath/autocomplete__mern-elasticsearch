@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { FiSearch as SearchIcon } from "react-icons/fi";
 import { VscChromeClose as CloseIcon } from "react-icons/vsc";
 
@@ -8,8 +9,16 @@ const Searchbar = () => {
   const [SearchActive, setSearchActive] = useState(false);
   const [SearchTerm, setSearchTerm] = useState("");
 
+  const history = useHistory();
+
+  const handleSearchClick = (event) => {
+    event.preventDefault();
+    setSearchActive(true);
+    history.push({ pathname: "/", search: `q=${SearchTerm}` });
+  };
+
   return (
-    <div
+    <form
       className={[
         classes.Searchbar,
         SearchActive && classes.ActiveSearchbar,
@@ -22,16 +31,15 @@ const Searchbar = () => {
         ].join(" ")}
         type="text"
         value={SearchTerm}
-        onChange={({ target }) => setSearchTerm(target.value)}
+        onChange={({ currentTarget }) =>
+          setSearchTerm(() => currentTarget.value)
+        }
         placeholder="Search"
         onMouseEnter={() => setSearchActive(true)}
         onMouseLeave={() => setSearchActive(false)}
         onFocus={() => setSearchActive(true)}
       />
-      <button
-        className={classes.SearchIcon}
-        onClick={() => setSearchActive((SearchActive) => !SearchActive)}
-      >
+      <button className={classes.SearchIcon} onClick={handleSearchClick}>
         <i>
           {SearchActive ? (
             <CloseIcon color="black" size="30px" />
@@ -40,7 +48,7 @@ const Searchbar = () => {
           )}
         </i>
       </button>
-    </div>
+    </form>
   );
 };
 
