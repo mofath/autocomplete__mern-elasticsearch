@@ -1,0 +1,43 @@
+  
+.FilterItems{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    list-style: none;
+    padding: 0px 20px;
+}
+
+.FilterItems  input{
+    margin: 0px 10px 0px 0px;
+    display: none;
+}
+
+.FilterItems  label{
+    margin: 0px 10px 0px 0px;
+    align-items: flex-start;
+    font-size: 15px;
+}
+
+.Active{
+    display: block;
+    width: 100%;
+    color:#0b4c8c;
+    font-weight: bold;
+    margin: 0px 0px;
+    cursor: pointer;
+}
+
+.Default {
+    margin: 0px 0px;
+    font-size: 14px;
+    color:#0b4c8c;
+    cursor: pointer;
+
+}
+
+.Default:hover{
+    color:#c7912b;
+    font-weight: 500;
+    cursor: pointer;
+
+}

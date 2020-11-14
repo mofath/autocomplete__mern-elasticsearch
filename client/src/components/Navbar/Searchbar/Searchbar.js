@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { FiSearch as SearchIcon } from "react-icons/fi";
+import { VscChromeClose as CloseIcon } from "react-icons/vsc";
 
 import classes from "./Searchbar.module.css";
 
@@ -7,29 +9,46 @@ const Searchbar = () => {
   const [SearchActive, setSearchActive] = useState(false);
   const [SearchTerm, setSearchTerm] = useState("");
 
+  const history = useHistory();
+
+  const handleSearchClick = (event) => {
+    event.preventDefault();
+    setSearchActive(true);
+    history.push({ pathname: "/", search: `q=${SearchTerm}` });
+  };
+
   return (
-    <div
-      className={[classes.Search, SearchActive && classes.SearchActive].join(" ")}
+    <form
+      className={[
+        classes.Searchbar,
+        SearchActive && classes.ActiveSearchbar,
+      ].join(" ")}
     >
       <input
         className={[
           classes.SearchInput,
-          SearchActive && classes.ActiveSearcInput,
+          SearchActive && classes.ActiveSearchInput,
         ].join(" ")}
-        type="search"
+        type="text"
         value={SearchTerm}
-        onChange={({ target }) => setSearchTerm(target.value)}
+        onChange={({ currentTarget }) =>
+          setSearchTerm(() => currentTarget.value)
+        }
         placeholder="Search"
+        onMouseEnter={() => setSearchActive(true)}
+        onMouseLeave={() => setSearchActive(false)}
+        onFocus={() => setSearchActive(true)}
       />
-      <button
-        className={classes.SearchIcon}
-        onClick={() => setSearchActive((SearchActive) => !SearchActive)}
-      >
+      <button className={classes.SearchIcon} onClick={handleSearchClick}>
         <i>
-          <SearchIcon color="black" size="30px" />
+          {SearchActive ? (
+            <CloseIcon color="black" size="30px" />
+          ) : (
+            <SearchIcon color="black" size="30px" />
+          )}
         </i>
       </button>
-    </div>
+    </form>
   );
 };
 
