@@ -7,10 +7,6 @@ const productSchema = mongoose.Schema(
     image: { type: String, maxlength: 250 },
     brand: { type: String, maxlength: 50 },
     price: { type: Number, default: 0 },
-    category: {
-      id: { type: String, maxlength: 250 },
-      name: { type: String, maxlength: 250 },
-    },
   },
   { timestamps: true }
 );
@@ -18,7 +14,6 @@ const productSchema = mongoose.Schema(
 productSchema.index({
   name: "text",
   brand: "text",
-  category: "text",
 });
 
 // productSchema.plugin(mongoosastic, {hydrate:true, hydrateOptions: {lean: true}});
