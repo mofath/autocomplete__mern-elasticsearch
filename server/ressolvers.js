@@ -17,7 +17,7 @@ const resolvers = {
   Mutation: {
     createProduct: async (args) => {
       console.log(args.itemProduct);
-      const item = new Item({
+      const newProduct = new ProductModel({
         name: args.itemProduct.name,
         brand: args.itemProduct.brand,
         price: +args.itemProduct.price,
@@ -25,7 +25,7 @@ const resolvers = {
       });
 
       try {
-        const createdProduct = await item.save();
+        const createdProduct = await newProduct.save();
         return createdProduct._doc;
       }
       catch (error) {
