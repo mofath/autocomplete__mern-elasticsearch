@@ -21,5 +21,5 @@ mongoose.connect("mongodb://localhost:27017/test3", {
 });
 
 app.listen({ port: 5000 }, () =>
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+  console.log(`🚀 Server ready at http://localhost:5000${server.graphqlPath}`)
 );

@@ -1,4 +1,4 @@
-const { ProductModel } = require("./models/product.model")
+const { ProductModel } = require("./models/product.model");
 
 const resolvers = {
   Query: {
@@ -6,7 +6,7 @@ const resolvers = {
     products: async () => {
       try {
         const products = await ProductModel.find();
-        return products.map(product => {
+        return products.map((product) => {
           return { ...product._doc, _id: product.id };
         });
       } catch (err) {
@@ -15,26 +15,23 @@ const resolvers = {
     },
   },
   Mutation: {
-    createProduct: async (args) => {
-      console.log(args.itemProduct);
+    createProduct: async (obj, { productInput }, ctx, info) => {
       const newProduct = new ProductModel({
-        name: args.itemProduct.name,
-        brand: args.itemProduct.brand,
-        price: +args.itemProduct.price,
-        image: args.itemProduct.image,
+        name: productInput.name,
+        brand: productInput.brand,
+        price: productInput.price,
+        image: productInput.image,
       });
 
       try {
         const createdProduct = await newProduct.save();
         return createdProduct._doc;
-      }
-      catch (error) {
+      } catch (error) {
         console.log(err);
         throw err;
       }
-    }
-  }
+    },
+  },
 };
-
 
 module.exports = resolvers;

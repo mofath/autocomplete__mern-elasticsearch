@@ -17,11 +17,11 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    createProduct(productInput: ProductInput!): Product!
+    createProduct(productInput: ProductInput): Product!
   }
 
   type Query {
-    hello: String!,
+    hello: String!
     products: [Product!]!
   }
 `;
