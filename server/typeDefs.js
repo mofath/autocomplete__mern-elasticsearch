@@ -23,6 +23,7 @@ const typeDefs = gql`
   type Query {
     hello: String!
     products: [Product!]!
+    search(query: String!): [Product!]!
   }
 `;
 

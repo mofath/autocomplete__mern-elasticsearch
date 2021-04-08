@@ -1,16 +1,22 @@
-const elasticsearch = require("elasticsearch");
-const { ApolloServer, gql } = require("apollo-server-express");
-const typeDefs = require("./typeDefs")
-const resolvers = require("./ressolvers")
-const express = require("express")
-const mongoose = require("mongoose")
+const express = require("express");
+const path = require("path");
+const mongoose = require("mongoose");
+const { ApolloServer } = require("apollo-server-express");
+
+const typeDefs = require("./typeDefs");
+const resolvers = require("./ressolvers");
+const { getEsClient } = require("./es-client");
 
 const app = express();
+const esClient = getEsClient();
 
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  context: ({ req }) => ({ req, esClient }),
 });
+
+app.use("/images", express.static(path.join(__dirname, "../images")));
 
 server.applyMiddleware({ app });
 

@@ -13,6 +13,27 @@ const resolvers = {
         throw err;
       }
     },
+    search: async (_, { query }, { esClient }) => {
+      const results = await esClient.search({
+        index: INDEX_NAME,
+        type: INDEX_TYPE,
+        body: {
+          suggest: {
+            titleSuggester: {
+              prefix: query,
+              completion: {
+                field: "titleSuggest",
+                fuzzy: {
+                  fuzziness: "auto",
+                },
+              },
+            },
+          },
+        },
+      });
+
+      return results.suggest.titleSuggester[0].options.map((x) => x._source);
+    },
   },
   Mutation: {
     createProduct: async (obj, { productInput }, ctx, info) => {
