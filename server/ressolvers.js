@@ -1,4 +1,5 @@
 const { ProductModel } = require("./models/product.model");
+const { INDEX_NAME, INDEX_TYPE } = require("./es-client");
 
 const resolvers = {
   Query: {
@@ -36,7 +37,7 @@ const resolvers = {
     },
   },
   Mutation: {
-    createProduct: async (obj, { productInput }, ctx, info) => {
+    createProduct: async (obj, { productInput }, { esClient }, info) => {
       const newProduct = new ProductModel({
         name: productInput.name,
         brand: productInput.brand,
@@ -46,10 +47,16 @@ const resolvers = {
 
       try {
         const createdProduct = await newProduct.save();
+        await esClient.index({
+          index: INDEX_NAME,
+          type: INDEX_TYPE,
+          id: createdProduct._id,
+          body: newProduct,
+        });
         return createdProduct._doc;
       } catch (error) {
-        console.log(err);
-        throw err;
+        console.log(error.message);
+        throw error;
       }
     },
   },
