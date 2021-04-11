@@ -7,25 +7,30 @@ const typeDefs = require("./typeDefs");
 const resolvers = require("./ressolvers");
 const { getEsClient } = require("./es-client");
 
-const app = express();
-const esClient = getEsClient();
+const main = async () => {
+  const app = express();
+  const esClient = await getEsClient();
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: ({ req }) => ({ req, esClient }),
-});
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: ({ req }) => ({ req, esClient }),
+  });
 
-app.use("/images", express.static(path.join(__dirname, "../images")));
+  app.use("/images", express.static(path.join(__dirname, "../images")));
 
-server.applyMiddleware({ app });
+  server.applyMiddleware({ app });
 
-mongoose.connect("mongodb://localhost:27017/test3", {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-});
+  mongoose.connect("mongodb://localhost:27017/test3", {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+  });
 
-app.listen({ port: 5000 }, () =>
-  console.log(`🚀 Server ready at http://localhost:5000${server.graphqlPath}`)
-);
+  app.listen({ port: 5000 }, () =>
+    console.log(`🚀 Server ready at http://localhost:5000${server.graphqlPath}`)
+  );
+}
+
+main();
+

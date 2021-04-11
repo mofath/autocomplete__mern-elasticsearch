@@ -38,20 +38,23 @@ const resolvers = {
   },
   Mutation: {
     createProduct: async (obj, { productInput }, { esClient }, info) => {
+      console.log(esClient);
       const newProduct = new ProductModel({
         name: productInput.name,
         brand: productInput.brand,
         price: productInput.price,
         image: productInput.image,
-      });
+      })
+
+
 
       try {
         const createdProduct = await newProduct.save();
         await esClient.index({
           index: INDEX_NAME,
           type: INDEX_TYPE,
-          id: createdProduct._id,
-          body: newProduct,
+          id: createdProduct._id.toString(),
+          body: { ...newProduct.doc },
         });
         return createdProduct._doc;
       } catch (error) {
