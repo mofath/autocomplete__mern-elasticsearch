@@ -5,7 +5,7 @@ const { ApolloServer } = require("apollo-server-express");
 
 const typeDefs = require("./typeDefs");
 const resolvers = require("./ressolvers");
-const { getEsClient } = require("./es-client");
+const { getEsClient } = require("./lib/es-client");
 
 const main = async () => {
   const app = express();
@@ -27,8 +27,8 @@ const main = async () => {
     useUnifiedTopology: true,
   });
 
-  app.listen({ port: 5000 }, () =>
-    console.log(`🚀 Server ready at http://localhost:5000${server.graphqlPath}`)
+  app.listen({ port: 5010 }, () =>
+    console.log(`🚀 Server ready at http://localhost:5010${server.graphqlPath}`)
   );
 }
 

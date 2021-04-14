@@ -1,5 +1,5 @@
 const { ProductModel } = require("./models/product.model");
-const { INDEX_NAME, INDEX_TYPE } = require("./es-client");
+const { INDEX_NAME, INDEX_TYPE } = require("./lib/es-client");
 
 const resolvers = {
   Query: {
