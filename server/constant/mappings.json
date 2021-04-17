@@ -1,0 +1,11 @@
+{
+  "productsMapping": {
+    "properties": {
+      "name": { "type": "keyword" },
+      "image": { "type": "text" },
+      "brand": { "type": "keyword" },
+      "id": { "type": "text", "index": false },
+      "suggest": { "type": "completion" }
+    }
+  }
+}

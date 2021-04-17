@@ -5,11 +5,12 @@ const { ApolloServer } = require("apollo-server-express");
 
 const typeDefs = require("./typeDefs");
 const resolvers = require("./ressolvers");
-const { getEsClient } = require("./lib/es-client");
+const { esConnect } = require("./lib/elasticsearch/index");
+
 
 const main = async () => {
   const app = express();
-  const esClient = await getEsClient();
+  const esClient = await esConnect();
 
   const server = new ApolloServer({
     typeDefs,
@@ -31,6 +32,5 @@ const main = async () => {
     console.log(`🚀 Server ready at http://localhost:5010${server.graphqlPath}`)
   );
 }
-
 main();
 

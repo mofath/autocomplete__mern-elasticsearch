@@ -1,9 +1,10 @@
 const { ProductModel } = require("./models/product.model");
-const { INDEX_NAME, INDEX_TYPE } = require("./lib/es-client");
+const { esSearch, addDocument } = require("./lib/elasticsearch");
+const { PRODUCTS_INDEX, PRODUCTS_TYPE } = require("./constant/elasticsearch-constants");
+const mappings = require("./constant/mappings.json");
 
 const resolvers = {
   Query: {
-    hello: () => "hi",
     products: async () => {
       try {
         const products = await ProductModel.find();
@@ -15,30 +16,23 @@ const resolvers = {
       }
     },
     search: async (_, { query }, { esClient }) => {
-      const results = await esClient.search({
-        index: INDEX_NAME,
-        type: INDEX_TYPE,
-        body: {
-          suggest: {
-            titleSuggester: {
-              prefix: query,
-              completion: {
-                field: "titleSuggest",
-                fuzzy: {
-                  fuzziness: "auto",
-                },
-              },
-            },
-          },
-        },
-      });
-
-      return results.suggest.titleSuggester[0].options.map((x) => x._source);
+      try {
+        const { suggest: { docsuggest } } = await esSearch(PRODUCTS_INDEX, PRODUCTS_TYPE, query);
+        return docsuggest[0].options.map(doc => {
+          return {
+            name: doc._source._doc,
+            brand: doc._source.brand,
+            image: doc._source.image,
+            id: doc._source.id
+          }
+        })
+      } catch (err) {
+        console.log(err.message);
+      }
     },
   },
   Mutation: {
     createProduct: async (obj, { productInput }, { esClient }, info) => {
-      console.log(esClient);
       const newProduct = new ProductModel({
         name: productInput.name,
         brand: productInput.brand,
@@ -46,17 +40,18 @@ const resolvers = {
         image: productInput.image,
       })
 
-
-
       try {
+        console.log(PRODUCTS_INDEX, PRODUCTS_TYPE);
+
         const createdProduct = await newProduct.save();
-        await esClient.index({
-          index: INDEX_NAME,
-          type: INDEX_TYPE,
-          id: createdProduct._id.toString(),
-          body: { ...newProduct.doc },
-        });
-        return createdProduct._doc;
+        await addDocument(PRODUCTS_INDEX, PRODUCTS_TYPE, createdProduct._doc, mappings.productsMapping)
+        return {
+          name: createdProduct._doc.name,
+          brand: createdProduct._doc.brand,
+          image: createdProduct._doc.image,
+          price: createdProduct._doc.price,
+          id: createdProduct._id
+        };
       } catch (error) {
         console.log(error.message);
         throw error;
