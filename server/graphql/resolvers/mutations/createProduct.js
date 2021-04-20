@@ -5,23 +5,22 @@ const mappings = require("../../../constant/mappings.json");
 
 exports.createProduct = async (obj, { productInput }, { esClient }, info) => {
   const newProduct = new ProductModel(productInput)
-  console.log(productInput);
 
   try {
     const createdProduct = await newProduct.save();
 
     const document = {
-      name: createdProduct._doc.name,
-      image: createdProduct._doc.image,
-      brand: createdProduct._doc.brand,
-      id: createdProduct._doc._id.toString(),
-      suggest: { input: createdProduct._doc.name.split(" ") }
+      name: createdProduct.name,
+      image: createdProduct.image,
+      brand: createdProduct.brand,
+      id: createdProduct.id,
+      suggest: { input: createdProduct.name.split(" ") }
     }
 
     await addDocument(PRODUCTS_INDEX, PRODUCTS_TYPE, document, mappings.productsMapping);
 
     delete document.suggest;
-    document.price = createdProduct._doc.price;
+    document.price = createdProduct.price;
     return document;
   } catch (error) {
     console.log(error.message);

@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const mongoosastic = require("mongoosastic");
-
 const productSchema = mongoose.Schema(
   {
     name: { type: String, es_boost: 2.0, maxlength: 250 },
@@ -8,7 +6,17 @@ const productSchema = mongoose.Schema(
     brand: { type: String, maxlength: 50 },
     price: { type: Number, default: 0 },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    toObject: {
+      transform: (doc, ret, options) => {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.__v;
+        return ret;
+      },
+    }
+  }
 );
 
 productSchema.index({
