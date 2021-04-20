@@ -3,8 +3,8 @@ const path = require("path");
 const mongoose = require("mongoose");
 const { ApolloServer } = require("apollo-server-express");
 
-const typeDefs = require("./typeDefs");
-const resolvers = require("./ressolvers");
+const { typeDefs } = require("./graphql/types");
+const { resolvers } = require("./graphql/resolvers");
 const { esConnect } = require("./lib/elasticsearch/index");
 
 

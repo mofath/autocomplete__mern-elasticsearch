@@ -8,13 +8,7 @@ const addDocument = (ind, ty, document, mapping) => {
         client.index({
             index: ind,
             type: ty,
-            body: {
-                name: document.name,
-                image: document.image,
-                brand: document.brand,
-                id: document._id.toString(),
-                suggest: {input: document.name.split(" ")}
-            }
+            body: document
         }, (err, resp, status) => {
             console.log(resp)
         })
