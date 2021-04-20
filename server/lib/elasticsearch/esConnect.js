@@ -8,11 +8,11 @@ const esConnect = async () => {
     while (tries) {
         try {
             await client.ping({ requestTimeout: 1000 });
-            console.log("All is well");
+            console.log("Connected to elasticsearch cluster");
             return client;
         } catch (err) {
             console.log(err.message);
-            console.trace("elasticsearch cluster is down!");
+            console.trace("Elasticsearch cluster is down!");
         }
         console.log(`could not connect to es ${tries} tries left`);
         tries -= 1;

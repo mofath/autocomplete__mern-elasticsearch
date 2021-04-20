@@ -1,9 +1,21 @@
 const express = require("express");
+const path = require("path");
 const bodyParser = require("body-parser");
 
-const productRouter = require("./routes/product.route");
+const { ApolloServer } = require("apollo-server-express");
 
+const { typeDefs } = require("./graphql/types");
+const { resolvers } = require("./graphql/resolvers");
 const app = express();
+
+const graphqlServer = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req }) => ({ req }),
+});
+
+graphqlServer.applyMiddleware({ app });
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -13,11 +25,9 @@ app.use(bodyParser.json());
  */
 app.use((req, res, next) => {
   console.log(`NEW REQUEST ${req.ip}`);
+  console.log(`${req.method} ${req.url}`);
   res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   if (req.method === "OPTIONS") {
     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
     return res.status(200).json({});
@@ -25,10 +35,7 @@ app.use((req, res, next) => {
   next();
 });
 
-/**
- * Routes which should handle requests
- */
-app.use("/products", productRouter);
+app.use("/images", express.static(path.join(__dirname, "../images")));
 
 /**
  * Override 404 error

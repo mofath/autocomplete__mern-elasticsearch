@@ -1,36 +1,23 @@
-const express = require("express");
-const path = require("path");
 const mongoose = require("mongoose");
-const { ApolloServer } = require("apollo-server-express");
-
-const { typeDefs } = require("./graphql/types");
-const { resolvers } = require("./graphql/resolvers");
+const config = require("./config");
+const DBManager = require("./lib/DBManager");
 const { esConnect } = require("./lib/elasticsearch/index");
 
+const http = require('http');
+const app = require('./app');
 
-const main = async () => {
-  const app = express();
-  const esClient = await esConnect();
+const PORT = config.PORT;
+const server = http.createServer(app);
+const db = DBManager.getInstance();
 
-  const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    context: ({ req }) => ({ req, esClient }),
-  });
-
-  app.use("/images", express.static(path.join(__dirname, "../images")));
-
-  server.applyMiddleware({ app });
-
-  mongoose.connect("mongodb://localhost:27017/test3", {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-  });
-
-  app.listen({ port: 5010 }, () =>
-    console.log(`🚀 Server ready at http://localhost:5010${server.graphqlPath}`)
-  );
-}
-main();
+db.conn.once("open", async (err) => {
+  if (err) console.log("Database connection failure");
+  else {
+    console.log("Database connection is opened");
+    await esConnect();
+    server.listen(PORT, () =>
+      console.log(`server is listening at port ${PORT}`)
+    );
+  }
+});
 
