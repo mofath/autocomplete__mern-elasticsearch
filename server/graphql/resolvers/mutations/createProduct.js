@@ -1,13 +1,11 @@
-const { ProductModel } = require("../../../models/product.model");
+const productService = require("../../../services");
 const { addDocument } = require("../../../lib/elasticsearch");
 const { PRODUCTS_INDEX, PRODUCTS_TYPE } = require("../../../constant/elasticsearch-constants");
 const mappings = require("../../../constant/mappings.json");
 
 exports.createProduct = async (obj, { productInput }, { esClient }, info) => {
-  const newProduct = new ProductModel(productInput)
-
   try {
-    const createdProduct = await newProduct.save();
+    const createdProduct = await productService.createProduct(productInput)
 
     const document = {
       name: createdProduct.name,

@@ -1,5 +1,5 @@
 const { ProductModel } = require("../models/product.model");
-const { HttpStatus, STATUS_MAP_MESSAGE } = require("../constant");
+const { HttpStatus, STATUS_MAP_MESSAGE } = require("../constant/httpError");
 
 module.exports.getProducts = async (req, res, next) => {
   console.log("\x1b[33m%s\x1b[0m", "...GET PRODUCT REQUEST...");

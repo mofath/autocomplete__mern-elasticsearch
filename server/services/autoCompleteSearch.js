@@ -1,5 +1,5 @@
 const { ProductModel } = require("../models/product.model");
-const { HttpStatus, STATUS_MAP_MESSAGE } = require("../constant");
+const { HttpStatus, STATUS_MAP_MESSAGE } = require("../constant/httpError");
 
 module.exports.autoCompleteSearch = async (req, res, next) => {
   const query = req.body.searchTerm;
