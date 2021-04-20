@@ -2,9 +2,8 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
   "scripts": {
-    "start": "nodemon --exec babel-node src/index.js"
+    "start": "node ./src/bin/www"
   },
   "keywords": [],
   "author": "",

@@ -1,0 +1,66 @@
+#!/usr/bin/env node
+
+const http = require('http');
+const config = require("../config");
+const DBManager = require("../lib/DBManager");
+const { esConnect } = require("../lib/elasticsearch/index");
+const { normalizePort } = require("../helpers")
+const app = require('../app');
+
+
+const PORT = normalizePort(config.PORT);
+app.set('port', PORT);
+const server = http.createServer(app);
+
+const db = DBManager.getInstance();
+
+db.conn.once("open", async (err) => {
+  if (err) console.log("Database connection failure");
+  else {
+    console.log("Database connection is opened");
+    await esConnect();
+    server.listen(PORT);
+  }
+});
+
+server.on('error', onError);
+server.on('listening', onListening);
+
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof PORT === 'string'
+    ? 'Pipe ' + PORT
+    : 'Port ' + PORT;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  console.log(`Listening on ${bind}`);
+}

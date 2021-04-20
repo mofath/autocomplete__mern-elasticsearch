@@ -23,7 +23,7 @@ class DBManager {
   }
 
   CONNECT() {
-    console.log("connecting to db...");
+    console.log("Connecting to db...");
     mongoose.connect(DB_URL, options);
     this._conn = mongoose.connection;
   }
