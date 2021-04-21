@@ -4,33 +4,35 @@ const config = require("../../config");
 const DB_URL = config.mongoose.url;
 const options = config.mongoose.options;
 
-class DBManager {
-  constructor() {
-    if (!DBManager.instance) {
-      this._conn = mongoose;
-      DBManager.instance = this;
+module.exports = (() => {
+  let instance;
+  let conn = mongoose;
+
+  const connectToDb = () => {
+    conn.connect(DB_URL, options);
+    return conn.connection;
+  }
+
+  const createInstance = () => {
+    conn.connection.on('error', error => {
+      console.error('Error in MongoDb connection: ' + error);
+      conn.disconnect(); 
+    });
+    conn.connection.on('disconnected', () => {
+      console.log('MongoDB disconnected!');
+      connectToDb();
+    });
+
+    connectToDb();
+    return conn.connection;
+  };
+
+  return {
+    getInstance: () => {
+      if (!instance) {
+        instance = createInstance();
+      }
+      return instance;
     }
-    return DBManager.instance;
-  }
-
-  CONNECT() {
-    console.log("Connecting to db...");
-    this._conn.connect(DB_URL, options);
-    return this._conn.connection;
-  }
-
-  DISCONNECT(){
-    console.log("Closing db connection...");
-    this._conn.connection.close();
-  }
-
-  get conn() {
-    this.CONNECT();
-    return this._conn.connection;
-  }
-}
-
-const instance = new DBManager()
-Object.freeze(instance)
-
-module.exports = instance;
+  };
+})();

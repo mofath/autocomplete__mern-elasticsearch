@@ -12,7 +12,7 @@ const PORT = normalizePort(config.port);
 app.set('port', PORT);
 const server = http.createServer(app);
 
-const conn = DBManager.CONNECT();
+const conn = DBManager.getInstance();
 
 conn.once("open", async (err) => {
   if (err) console.log("Database connection failure");
@@ -23,21 +23,12 @@ conn.once("open", async (err) => {
   }
 });
 
-conn.on("error", (err) => {
-  console.log("Mongoose connection error " + err);
-});
-
-conn.on("disconnected", () => {
-  console.log("Mongoose disconnected");
-});
 
 server.on('error', onError);
 server.on('listening', onListening);
 
 
-/**
- * Event listener for HTTP server "error" event.
- */
+// Event listener for HTTP server "error" event.
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
@@ -62,9 +53,7 @@ function onError(error) {
   }
 }
 
-/**
- * Event listener for HTTP server "listening" event.
- */
+// Event listener for HTTP server "listening" event.
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string'
