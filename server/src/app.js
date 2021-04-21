@@ -1,28 +1,18 @@
 const express = require("express");
 const path = require("path");
-const bodyParser = require("body-parser");
+const  graphqlServer  = require("./graphql");
 
-const { ApolloServer } = require("apollo-server-express");
 
-const { typeDefs } = require("./graphql/types");
-const { resolvers } = require("./graphql/resolvers");
 const app = express();
-
-const graphqlServer = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: ({ req }) => ({ req }),
-});
-
 graphqlServer.applyMiddleware({ app });
 
+// parse json request body
+app.use(express.json());
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+// parse urlencoded request body
+app.use(express.urlencoded({ extended: true }));
 
-/**
- * Handle cors
- */
+// Handle cors
 app.use((req, res, next) => {
   console.log(`NEW REQUEST ${req.ip}`);
   console.log(`${req.method} ${req.url}`);
