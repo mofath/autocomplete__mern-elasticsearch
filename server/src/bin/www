@@ -8,7 +8,7 @@ const { normalizePort } = require("../helpers")
 const app = require('../app');
 
 
-const PORT = normalizePort(config.PORT);
+const PORT = normalizePort(config.port);
 app.set('port', PORT);
 const server = http.createServer(app);
 
