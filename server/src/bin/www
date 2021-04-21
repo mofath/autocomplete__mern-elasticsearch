@@ -12,15 +12,23 @@ const PORT = normalizePort(config.port);
 app.set('port', PORT);
 const server = http.createServer(app);
 
-const db = DBManager.getInstance();
+const conn = DBManager.CONNECT();
 
-db.conn.once("open", async (err) => {
+conn.once("open", async (err) => {
   if (err) console.log("Database connection failure");
   else {
     console.log("Database connection is opened");
     await esConnect();
     server.listen(PORT);
   }
+});
+
+conn.on("error", (err) => {
+  console.log("Mongoose connection error " + err);
+});
+
+conn.on("disconnected", () => {
+  console.log("Mongoose disconnected");
 });
 
 server.on('error', onError);
