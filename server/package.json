@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "node ./src/bin/www",
+    "start": "pm2 start ecosystem.config.json --no-daemon",
     "dev": "cross-env NODE_ENV=development nodemon ./src/bin/www"
   },
   "keywords": [],
@@ -21,6 +21,7 @@
     "joi": "^17.4.0",
     "mongoosastic": "^4.6.0",
     "mongoose": "^5.10.13",
+    "pm2": "^4.5.6",
     "swagger-jsdoc": "^7.0.0-rc.6",
     "swagger-ui-express": "^4.1.6",
     "validator": "^13.6.0",
