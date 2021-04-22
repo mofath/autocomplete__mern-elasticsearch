@@ -1,6 +1,5 @@
 module.exports = {
-  ...require("./filterAndSearchProducts"),
-  ...require("./autoCompleteSearch"),
+  ...require("./searchProducts"),
   ...require("./getAllProducts"),
   ...require("./createProduct"),
 };
