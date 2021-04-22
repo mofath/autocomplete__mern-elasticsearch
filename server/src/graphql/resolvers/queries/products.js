@@ -1,10 +1,11 @@
-const { ProductModel } = require("../../../models/product.model");
+const productService = require("../../../services");
 
-exports.products = async () => {
+exports.products = async (_, { skip, limit }, ctx) => {
     try {
-        const products = await ProductModel.find();
-        return products.map((product) => product.toObject());
-    } catch (err) {
-        throw err;
+        const products = await productService.getAllProducts({ skip, limit })
+        return products
+    } catch (error) {
+        console.log("Something went wrong: GraphQL query: products:", error.message);
+        throw error;
     }
 }

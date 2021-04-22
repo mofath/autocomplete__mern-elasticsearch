@@ -21,8 +21,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    hello: String!
-    products: [Product!]!
+    products( skip: Int = 0, limit: Int = 10 ): [Product!]!
     search(query: String!): [Product!]!
   }
 `;
