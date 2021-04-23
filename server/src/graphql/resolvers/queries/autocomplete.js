@@ -1,9 +1,9 @@
-const { esSearch } = require("../../../lib/elasticsearch");
+const { esService } = require("../../../services");
 const { PRODUCTS_INDEX, PRODUCTS_TYPE } = require("../../../constant/elasticsearch-constants")
 
-exports.search = async (_, { query }, ctx) => {
+exports.autocomplete = async (_, { query }, ctx) => {
   try {
-    const { suggest: { docsuggest } } = await esSearch(PRODUCTS_INDEX, PRODUCTS_TYPE, query);
+    const { suggest: { docsuggest } } = await esService.search(PRODUCTS_INDEX, PRODUCTS_TYPE, query);
     return docsuggest[0].options.map(doc => {
       return {
         name: doc._source._doc,

@@ -1,5 +1,8 @@
+const esService = require("./elasticsearch");
+const productService = require("./product");
+
+
 module.exports = {
-  ...require("./searchProducts"),
-  ...require("./getAllProducts"),
-  ...require("./createProduct"),
-};
+    esService,
+    productService,
+}

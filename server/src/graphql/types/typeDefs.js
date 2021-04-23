@@ -22,7 +22,7 @@ const typeDefs = gql`
 
   type Query {
     products( skip: Int = 0, limit: Int = 10 ): [Product!]!
-    search(query: String!): [Product!]!
+    autocomplete(query: String!): [Product!]!
   }
 `;
 

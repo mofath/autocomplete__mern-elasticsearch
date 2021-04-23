@@ -1,4 +1,4 @@
-const { ProductModel } = require("../models/product.model");
+const { ProductModel } = require("../../models");
 
 module.exports.searchProducts = async ({ searchTerm, findArgs = {}, sortBy, order, skip, limit }) => {
   try {

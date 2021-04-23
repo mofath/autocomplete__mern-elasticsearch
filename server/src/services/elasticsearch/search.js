@@ -1,6 +1,6 @@
 const client = require("./client")
 
-const esSearch = (ind, ty, query) => {
+const search = (ind, ty, query) => {
   return client.search({
     index: ind,
     type: ty,
@@ -17,4 +17,4 @@ const esSearch = (ind, ty, query) => {
   })
 }
 
-module.exports = esSearch;
+module.exports = search;

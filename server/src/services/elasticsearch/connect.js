@@ -4,7 +4,7 @@ const tries = 3;
 
 const sleep = (ms) => new Promise((res) => setTimeout(() => res(), ms));
 
-const esConnect = async () => {
+const connect = async () => {
     while (tries) {
         try {
             await client.ping({ requestTimeout: 1000 });
@@ -23,4 +23,4 @@ const esConnect = async () => {
 };
 
 
-module.exports = esConnect;
+module.exports = connect;

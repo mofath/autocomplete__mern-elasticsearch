@@ -1,4 +1,4 @@
-const { ProductModel } = require("../models/product.model");
+const { ProductModel } = require("../../models");
 
 exports.createProduct = async (serviceData) => {
     try {

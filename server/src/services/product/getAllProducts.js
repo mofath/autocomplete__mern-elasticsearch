@@ -1,4 +1,4 @@
-const { ProductModel } = require("../models/product.model");
+const { ProductModel } = require("../../models");
 
 module.exports.getAllProducts = async ({ skip = 0, limit = 10 }) => {
     try {

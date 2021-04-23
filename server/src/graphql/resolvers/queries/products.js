@@ -1,4 +1,4 @@
-const productService = require("../../../services");
+const { productService } = require("../../../services");
 
 exports.products = async (_, { skip, limit }, ctx) => {
     try {

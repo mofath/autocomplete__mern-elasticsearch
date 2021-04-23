@@ -3,7 +3,7 @@
 const http = require('http');
 const config = require("../config");
 const DBManager = require("../lib/DBManager");
-const { esConnect } = require("../lib/elasticsearch/index");
+const { esService } = require("../services/");
 const { normalizePort } = require("../helpers")
 const app = require('../app');
 
@@ -18,7 +18,7 @@ conn.once("open", async (err) => {
   if (err) console.log("Database connection failure");
   else {
     console.log("Database connection is opened");
-    await esConnect();
+    await esService.connect();
     server.listen(PORT);
   }
 });

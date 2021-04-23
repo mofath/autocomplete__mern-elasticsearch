@@ -1,8 +1,7 @@
 const { products } = require("./products");
-const { search } = require("./search");
-
+const { autocomplete } = require("./autocomplete");
 
 exports.queries = {
     products,
-    search
+    autocomplete
 }

@@ -1,5 +1,5 @@
-const productService = require("../../../services");
-const esService = require("../../../lib/elasticsearch");
+const { productService } = require("../../../services");
+const { esService } = require("../../../services");
 const { PRODUCTS_INDEX, PRODUCTS_TYPE } = require("../../../constant/elasticsearch-constants");
 const mappings = require("../../../constant/mappings.json");
 
