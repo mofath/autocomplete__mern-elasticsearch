@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
-const  graphqlServer  = require("./graphql");
+const { CorsMiddleware } = require("./middlewares")
+const graphqlServer = require("./graphql");
 
 
 const app = express();
@@ -8,22 +9,11 @@ graphqlServer.applyMiddleware({ app });
 
 // parse json request body
 app.use(express.json());
-
 // parse urlencoded request body
 app.use(express.urlencoded({ extended: true }));
 
 // Handle cors
-app.use((req, res, next) => {
-  console.log(`NEW REQUEST ${req.ip}`);
-  console.log(`${req.method} ${req.url}`);
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-  if (req.method === "OPTIONS") {
-    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-    return res.status(200).json({});
-  }
-  next();
-});
+app.use(CorsMiddleware);
 
 app.use("/images", express.static(path.join(__dirname, "../images")));
 
