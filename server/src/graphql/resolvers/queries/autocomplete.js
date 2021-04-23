@@ -1,5 +1,5 @@
 const { esService } = require("../../../services");
-const { PRODUCTS_INDEX, PRODUCTS_TYPE } = require("../../../constant/elasticsearch-constants")
+const { PRODUCTS_INDEX, PRODUCTS_TYPE } = require("../../../constant/es.constants")
 
 exports.autocomplete = async (_, { query }, ctx) => {
   try {
