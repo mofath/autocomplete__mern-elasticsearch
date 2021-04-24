@@ -54,13 +54,13 @@ module.exports = (filename) => {
   return {
     errorLogger: createLogger({
       transports: [
-        new transports.File(options.access),
+        new transports.File(options.error),
         new transports.Console(options.console),
       ],
     }),
     accessLogger: createLogger({
       transports: [
-        new transports.File(options.error),
+        new transports.File(options.access),
         new transports.Console(options.console),
       ],
     }),
