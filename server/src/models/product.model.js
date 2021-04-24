@@ -5,6 +5,10 @@ const productSchema = mongoose.Schema(
     image: { type: String, maxlength: 250 },
     brand: { type: String, maxlength: 50 },
     price: { type: Number, default: 0 },
+    category: {
+      id: { type: Number, maxlength: 250 },
+      name: { type: String, maxlength: 250 },
+    },
   },
   {
     timestamps: true,

@@ -1,12 +1,15 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
-  type Product {
-    id: ID!
+
+  type Category {
+    id: Int!
     name: String!
-    brand: String!
-    price: Float!
-    image: String!
+  }
+
+  input CategoryInput {
+    id: Int!
+    name: String!
   }
 
   input ProductInput {
@@ -14,6 +17,16 @@ const typeDefs = gql`
     brand: String!
     price: Float!
     image: String!
+    category: CategoryInput!
+  }
+
+  type Product {
+    id: ID!
+    name: String!
+    brand: String!
+    price: Float!
+    image: String!
+    category: Category!
   }
 
   type Mutation {
