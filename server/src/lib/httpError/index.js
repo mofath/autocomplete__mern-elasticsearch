@@ -12,11 +12,6 @@ class Error404 extends HttpError {
         const { name, statusCode } = HttpStatusCode.NOT_FOUND;
         super(statusCode, name, message, stack);
     }
-}class Error500 extends HttpError {
-    constructor(stack = "", message = "") {
-        const { name, statusCode } = HttpStatusCode.INTERNAL_SERVER_ERROR;
-        super(statusCode, name, message, stack);
-    }
 }
 
 class Error500 extends HttpError {
@@ -25,6 +20,7 @@ class Error500 extends HttpError {
         super(statusCode, name, message, stack);
     }
 }
+
 
 module.exports = {
     HttpError,
