@@ -1,5 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
-import { fetchProductsService, filterProductsService } from "../../_service";
+import { filterProductsService } from "../../_service";
+import { loadProducts } from "../../graphql/requests"
+
+
 const INTIAL_FILTER = {
   categories: [],
   brands: [],
@@ -15,8 +18,9 @@ const useFetch = (props) => {
 
   // methods
   const getProducts = useCallback(async () => {
-    const { results, msgError } = await fetchProductsService().read();
-    !msgError && setProducts([...results]);
+    const {error, data } = await loadProducts();
+    console.log(data.products);
+    !error && setProducts([...data.products]);
   }, []);
 
   const filterProducts = useCallback(async (queryParams) => {

@@ -3,7 +3,15 @@ import gql from 'graphql-tag'
 export const productsQuery = gql`
   query ProductsQuery {
     products {
-        id
+        id,
+        name,
+        image,
+        brand,
+        price,
+        category{
+          id
+          name
+        }
     }
   }
 `;

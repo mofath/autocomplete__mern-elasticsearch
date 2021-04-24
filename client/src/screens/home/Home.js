@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 import classes from "./Home.module.css";
 import { ProductList, Sidebar } from "../../containers";
 import fetchHook from "./fetchHook";
-import { loadProducts } from "../../graphql/requests"
 
 const HomeScreen = ({ history }) => {
   const {
@@ -22,9 +21,6 @@ const HomeScreen = ({ history }) => {
     [history, handleSearch]
   );
 
-  useEffect(() => {
-    loadProducts();
-  }, [])
 
   return (
     <div className={[classes.HomeScreen, "screen"].join(" ")}>
