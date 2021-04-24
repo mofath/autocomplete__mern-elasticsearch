@@ -7,6 +7,13 @@ const typeDefs = gql`
     name: String!
   }
 
+  type Autocomplete {
+    name: String
+    brand: String
+    image: String
+    id: ID!
+  }
+
   input CategoryInput {
     id: Int!
     name: String!
@@ -35,7 +42,7 @@ const typeDefs = gql`
 
   type Query {
     products( skip: Int = 0, limit: Int = 10 ): [Product!]!
-    autocomplete(query: String!): [Product!]!
+    autocomplete(text: String!): [Autocomplete!]!
   }
 `;
 
