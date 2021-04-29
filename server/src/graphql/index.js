@@ -6,7 +6,7 @@ const {accessLogger, errorLogger} = require("../lib/logger")(__filename)
 
 const myPlugin = {
     requestDidStart(requestContext) {
-        accessLogger.info('Request started!');
+        // accessLogger.info('Request started!');
 
         return {
             parsingDidStart(requestContext) {
