@@ -18,10 +18,10 @@ const useFetch = (props) => {
 
   // methods
   const getProducts = useCallback(async () => {
-    const {error, data } = await loadProducts();
-    console.log(data.products);
+    const { error, data } = await loadProducts();
     !error && setProducts([...data.products]);
   }, []);
+
 
   const filterProducts = useCallback(async (queryParams) => {
     const { results, msgError } = await filterProductsService(
