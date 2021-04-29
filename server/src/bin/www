@@ -4,9 +4,9 @@ const http = require('http');
 const config = require("../config");
 const DBManager = require("../lib/DBManager");
 const { esService } = require("../services/");
-const { normalizePort } = require("../helpers")
+const { normalizePort, errorStackParser } = require("../helpers");
+const logger = require("../lib/logger");
 const app = require('../app');
-
 
 const PORT = normalizePort(config.port);
 app.set('port', PORT);
@@ -23,10 +23,9 @@ conn.once("open", async (err) => {
   }
 });
 
-
 server.on('error', onError);
 server.on('listening', onListening);
-
+server.on('uncaughtException', onUncaughtException);
 
 // Event listener for HTTP server "error" event.
 function onError(error) {
@@ -61,3 +60,10 @@ function onListening() {
     : 'port ' + addr.port;
   console.log(`Listening on ${bind}`);
 }
+
+// Event listener for "uncaught exception" event.
+function onUncaughtException(err) {
+  const parsedStack = errorStackParser(err);
+  logger(parsedStack[1].fileName).errorLogger.error(`UNCAUGHT EXCEPTION: ${err.message || "Unkown"}`);
+  process.exit(1);
+};
