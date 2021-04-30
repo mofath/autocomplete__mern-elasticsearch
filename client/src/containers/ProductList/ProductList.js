@@ -5,7 +5,7 @@ function ProductList({ products }) {
   const RenderProductList = () =>
     products.map((product) => {
       return (
-        <li key={product._id}>
+        <li key={product.id}>
           <ProductCard product={product} />
         </li>
       );
