@@ -25,16 +25,16 @@ const Navbar = (props) => {
         </div>
         <SearchBar />
         <div>
-          <i>
+          <i className={classes.Icon}>
             <ShoppingBagIcon color="black" size="30px" />
           </i>
-          <i>
+          <i className={classes.Icon}>
             <HomeIcon color="black" size="30px" />
           </i>
-          <i>
+          <i className={classes.Icon}>
             <FavIcon color="black" size="30px" />
           </i>
-          <i>
+          <i className={classes.Icon}>
             <UserIcon color="black" size="27px" />
           </i>
         </div>

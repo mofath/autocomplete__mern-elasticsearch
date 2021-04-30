@@ -1,54 +1,73 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { FiSearch as SearchIcon } from "react-icons/fi";
-import { VscChromeClose as CloseIcon } from "react-icons/vsc";
+import { VscClose as CloseIcon } from "react-icons/vsc";
+import { autocomplete } from "../../../graphql/requests"
 
-import classes from "./Searchbar.module.css";
+import "./Searchbar.scss";
+import React from "react";
 
 const Searchbar = () => {
-  const [SearchActive, setSearchActive] = useState(false);
   const [SearchTerm, setSearchTerm] = useState("");
+  const [suggestions, setSuggestions] = useState([])
 
   const history = useHistory();
 
   const handleSearchClick = (event) => {
+    console.log(event);
     event.preventDefault();
-    setSearchActive(true);
     history.push({ pathname: "/", search: `q=${SearchTerm}` });
   };
 
+  const resetSearch = () => {
+    setSearchTerm("");
+    setSuggestions([])
+  }
+
+  const handleTextChange = async (event) => {
+    const text = event.currentTarget.value;
+    setSearchTerm(text)
+    const { data, error } = await autocomplete(text)
+    !error && setSuggestions(() => data.autocomplete.map(item => item))
+  }
+
+  const renderSuggestions = () => {
+    if (suggestions.length === 0) return null
+    return (
+      <React.Fragment>
+        {suggestions.map((suggestion) => {
+          const regex = new RegExp(SearchTerm, 'gi');
+          const name = suggestion.name.replace(regex, `<strong>${SearchTerm}</strong>`);
+          return (<li className="searchbar__autocomplete__results__suggestion" key={suggestion.id} dangerouslySetInnerHTML={{ __html: name }}></li>)
+        })}
+      </React.Fragment>
+    )
+  }
+
   return (
-    <form
-      className={[
-        classes.Searchbar,
-        SearchActive && classes.ActiveSearchbar,
-      ].join(" ")}
-    >
-      <input
-        className={[
-          classes.SearchInput,
-          SearchActive && classes.ActiveSearchInput,
-        ].join(" ")}
-        type="text"
-        value={SearchTerm}
-        onChange={({ currentTarget }) =>
-          setSearchTerm(() => currentTarget.value)
-        }
-        placeholder="Search"
-        onMouseEnter={() => setSearchActive(true)}
-        onMouseLeave={() => setSearchActive(false)}
-        onFocus={() => setSearchActive(true)}
-      />
-      <button className={classes.SearchIcon} onClick={handleSearchClick}>
-        <i>
-          {SearchActive ? (
-            <CloseIcon color="black" size="30px" />
-          ) : (
-            <SearchIcon color="black" size="30px" />
-          )}
-        </i>
-      </button>
-    </form>
+    <div className="searchbar">
+      <form className="searchbar__form" >
+        <div className="searchbar__form__input-group">
+          <input
+            type="text"
+            className="searchbar__form__input"
+            placeholder="Search"
+            autoComplete="off"
+            tabIndex="-1"
+            value={SearchTerm}
+            onChange={(event) => handleTextChange(event)}
+          />
+          <i className="searchbar__clear-search-icon" onClick={resetSearch}><CloseIcon size="20" /></i>
+          <i className="searchbar__search-icon" onClick={handleSearchClick}><SearchIcon size="24" /></i>
+          <div className="searchbar__autocomplete" >
+            <ul className="searchbar__autocomplete__results" >
+              {renderSuggestions()}
+            </ul>
+          </div>
+          {SearchTerm && <div className="searchbar__autocomplete__overlay"></div>}
+        </div>
+      </form>
+    </div>
   );
 };
 
