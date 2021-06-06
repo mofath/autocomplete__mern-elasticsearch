@@ -1,8 +1,7 @@
 .ProductCard {
   background-color: white;
   border-radius: 4px;
-  width: 235px !important;
-  width: 200px;
+  width: 235px;
   cursor: pointer;
   padding: 0px 10px 10px 10px;
   overflow: hidden;
