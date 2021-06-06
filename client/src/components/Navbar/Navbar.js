@@ -21,7 +21,7 @@ const Navbar = (props) => {
         className={[classes.NavigationContainer, "horizontal-layout"].join(" ")}
       >
         <div className={classes.BrandLogo}>
-          <h1>Shopify</h1>
+          <h1 style={{color:"#5bb381"}}>Shop<span style={{color:"#ce375c"}}>Me</span></h1>
         </div>
         <SearchBar />
         <div>

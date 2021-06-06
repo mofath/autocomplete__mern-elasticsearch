@@ -19,7 +19,7 @@
 .NavigationContainer {
   justify-content: space-between;
   align-items: center;
-  padding: 0 10%;
+  padding: 0 7%;
 }
 
 .NavigationContainer .Icon {
@@ -29,5 +29,6 @@
 
 .BrandLogo {
   font-family: billabongregular;
+  align-self: flex-start;
 }
 

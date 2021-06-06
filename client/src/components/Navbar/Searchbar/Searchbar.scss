@@ -23,6 +23,7 @@
       border: none;
       border-bottom: 1px solid #dcdcdc;
       width: 100%;
+      font-size: 18px;
       &:not(:placeholder-shown) + .searchbar__clear-search-icon {
         display: block;
       }
@@ -78,14 +79,46 @@
       z-index: 460;
 
       &__suggestion {
-        padding: 6px 12px;
+        padding: 5px 20px 5px 5px;
         cursor: pointer;
         border-top: 1px solid #f7f7f7;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap:8px;
+        strong {
+          background: yellow;
+        }
         &:first-child {
           border: 0;
+        }
+        &:hover{
+          background:rgb(243, 243, 243);
+        }
+        .suggestion-name{
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          width: 100%;
+        }
+        & >div {
+          width: 47px;
+          & > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 36px;
+            & > img {
+              width: auto;
+              height: 80%;
+              object-fit: cover;
+            }
+          }
+          
         }
       }
     }

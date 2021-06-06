@@ -38,7 +38,10 @@ const Searchbar = () => {
         {suggestions.map((suggestion) => {
           const regex = new RegExp(SearchTerm, 'gi');
           const name = suggestion.name.replace(regex, `<strong>${SearchTerm}</strong>`);
-          return (<li className="searchbar__autocomplete__results__suggestion" key={suggestion.id} dangerouslySetInnerHTML={{ __html: name }}></li>)
+          return (<li key={suggestion.id} className="searchbar__autocomplete__results__suggestion horizontal-layput">
+            <div><div><img src={suggestion.image} /></div></div>
+            <div className="suggestion-name" dangerouslySetInnerHTML={{ __html: name }} />
+          </li>)
         })}
       </React.Fragment>
     )
