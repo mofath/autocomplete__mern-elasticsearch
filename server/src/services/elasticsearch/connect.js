@@ -1,6 +1,6 @@
 const client = require("./client")
 
-const tries = 3;
+let tries = 3;
 
 const sleep = (ms) => new Promise((res) => setTimeout(() => res(), ms));
 
