@@ -39,7 +39,7 @@ const Searchbar = () => {
           const regex = new RegExp(SearchTerm, 'gi');
           const name = suggestion.name.replace(regex, `<strong>${SearchTerm}</strong>`);
           return (<li key={suggestion.id} className="searchbar__autocomplete__results__suggestion horizontal-layput">
-            <div><div><img src={suggestion.image} /></div></div>
+            <div><div><img src={suggestion.image} alt="" /></div></div>
             <div className="suggestion-name" dangerouslySetInnerHTML={{ __html: name }} />
           </li>)
         })}
