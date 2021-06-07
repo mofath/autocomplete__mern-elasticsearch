@@ -10,7 +10,6 @@ Elasticsearch, MongoDB, Expressjs, React/Redux, Nodejs
 ![demo](demo.gif)
 
 <br>
-<br>
 
 # Installing the app
 
