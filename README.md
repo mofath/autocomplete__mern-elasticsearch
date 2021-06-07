@@ -1,5 +1,5 @@
 <h1 align="center">
-🔍 Search Products with MERN Stack and Elasticsearch
+🔍 Autocomplete with MERN Stack and Elasticsearch
 </h1>
 <p align="center">
 Elasticsearch, MongoDB, Expressjs, React/Redux, Nodejs
